@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/find"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:paddingStart="@dimen/btn_margin_top"
+                    android:paddingEnd="@dimen/btn_margin_right">
+
+                    <ImageView
+                        android:id="@+id/findImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/magnifier"/>
+
+                    <TextView
+                        android:id="@+id/deviceCnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="@dimen/btn_margin_left"
+                        android:layout_toEndOf="@id/findImg"
+                        android:textSize="@dimen/h3_text_size"
+                        android:text="@string/no_device"/>
+
+                </RelativeLayout>
+
+                <ListView
+                    android:id="@+id/deviceList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="@dimen/btn_margin_left"
+                    android:paddingEnd="@dimen/btn_margin_right"
+                    android:paddingTop="@dimen/listview_padding"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_container_height"
+                android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:orientation="horizontal"
+                android:layout_gravity="bottom">
+
+                <Button
+                    android:id="@+id/searchBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/btn_margin_left"
+                    android:layout_marginEnd="@dimen/btn_margin_right"
+                    android:background="@color/purple_500"
+                    android:enabled="false"
+                    android:textSize="@dimen/h2_text_size"
+                    android:textColor="@color/white"
+                    android:text="@string/btn_search"/>
+
+                <Button
+                    android:id="@+id/connectBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/btn_margin_right"
+                    android:background="@color/purple_500"
+                    android:enabled="false"
+                    android:textSize="@dimen/h2_text_size"
+                    android:textColor="@color/white"
+                    android:text="@string/btn_connect"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchLoading"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.cunoraz.gifview.library.GifView
+            android:id="@+id/wifiGif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            custom:gif="@drawable/wifi"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/btn_margin_left"
+            android:textSize="@dimen/h3_text_size"
+            android:text="Searching nearby devices..."/>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MIRROR CASTOR</string>
+    <string name="title_activity_main">WELCOME</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_start">START</string>
+    <string name="btn_exit">EXIT</string>
+    <string name="btn_search">SEARCH DEVICES</string>
+    <string name="btn_connect">CONNECT DEVICE</string>
+    <string name="title_activity_search">FIND YOUR DEVICE</string>
+    <string name="no_device">No Device Found.</string>
+    <string name="wait_connect">Waiting for connection into TV...</string>
+</resources>
