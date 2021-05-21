@@ -2,7 +2,6 @@ package com.nikita.receiver;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.wifi.WpsInfo;
@@ -18,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -32,8 +30,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private ActivitySearchBinding binding;
     GifView wifiGif;
-    Button searchBtn;
-    Button connectBtn;
+    public Button searchBtn;
+    public Button connectBtn;
     ListView deviceList;
     LinearLayout searchLoading;
 
@@ -131,9 +129,7 @@ public class SearchActivity extends AppCompatActivity {
                 manager.connect(channel, config, new WifiP2pManager.ActionListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(SearchActivity.this, "Connection succeeded.", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(SearchActivity.this, CastActivity.class);
-                        startActivity(intent);
+
                     }
 
                     @Override
@@ -149,7 +145,7 @@ public class SearchActivity extends AppCompatActivity {
         deviceList.setAdapter(mAdapter);
     }
 
-    private void toggleLoadingVisibility(boolean flag) {
+    public void toggleLoadingVisibility(boolean flag) {
         if(flag) {
             searchLoading.setVisibility(View.VISIBLE);
             wifiGif.play();
@@ -219,15 +215,15 @@ public class SearchActivity extends AppCompatActivity {
     public WifiP2pManager.ActionListener discoveryListener = new WifiP2pManager.ActionListener() {
         @Override
         public void onSuccess() {
-            toggleLoadingVisibility(false);
-            searchBtn.setEnabled(true);
+            //toggleLoadingVisibility(false);
+            //searchBtn.setEnabled(true);
         }
 
         @Override
         public void onFailure(int reason) {
             toggleLoadingVisibility(false);
             searchBtn.setEnabled(true);
-            Toast.makeText(SearchActivity.this, "There is an error in finding devices.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SearchActivity.this, "There is an error in finding devices.", Toast.LENGTH_LONG).show();
         }
     };
 }

@@ -5,8 +5,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
+import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.widget.TextView;
@@ -56,7 +59,17 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void handleWifiP2pDiscoveryChangedAction(Intent intent) {
-
+        int state = intent.getIntExtra(WifiP2pManager.EXTRA_DISCOVERY_STATE, -1);
+        if(state == WifiP2pManager.WIFI_P2P_DISCOVERY_STARTED) {
+            Toast.makeText(activity, "Searching device has started.", Toast.LENGTH_SHORT).show();
+            activity.toggleLoadingVisibility(false);
+            activity.searchBtn.setEnabled(false);
+            activity.connectBtn.setEnabled(false);
+        } else {
+            Toast.makeText(activity, "Searching device has ended.", Toast.LENGTH_SHORT).show();
+            activity.toggleLoadingVisibility(false);
+            activity.searchBtn.setEnabled(true);
+        }
     }
 
 
@@ -78,7 +91,16 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void handleWifiP2pConnectionChangedAction(Intent intent) {
+        NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
+        if(networkInfo.isConnected()) {
+            Toast.makeText(activity, "Connection detected.", Toast.LENGTH_LONG).show();
+            manager.requestConnectionInfo(channel, new WifiP2pManager.ConnectionInfoListener() {
+                @Override
+                public void onConnectionInfoAvailable(WifiP2pInfo info) {
 
+                }
+            });
+        }
     }
 
     private void handleWifiP2pThisDeviceChangedAction(Intent intent) {
@@ -91,10 +113,16 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
             List<WifiP2pDevice> refreshedPeers = (List<WifiP2pDevice>) peerList.getDeviceList();
             activity.updateDeviceList(refreshedPeers);
             TextView deviceCnt = activity.findViewById(R.id.deviceCnt);
-            if(refreshedPeers.size() == 0)
+            if(refreshedPeers.size() == 0) {
                 deviceCnt.setText(activity.getText(R.string.no_device));
-            else
+                activity.toggleLoadingVisibility(false);
+                activity.searchBtn.setEnabled(true);
+            }
+            else {
                 deviceCnt.setText(refreshedPeers.size() + " Devices Found.");
+                activity.toggleLoadingVisibility(false);
+                activity.searchBtn.setEnabled(true);
+            }
         }
     };
 }
