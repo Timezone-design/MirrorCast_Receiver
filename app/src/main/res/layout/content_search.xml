@@ -77,7 +77,7 @@
                     android:layout_marginStart="@dimen/btn_margin_left"
                     android:layout_marginEnd="@dimen/btn_margin_right"
                     android:background="@color/purple_500"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:textSize="@dimen/h2_text_size"
                     android:textColor="@color/white"
                     android:text="@string/btn_search"/>

@@ -2,6 +2,7 @@ package com.nikita.receiver;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.wifi.WpsInfo;
@@ -10,6 +11,7 @@ import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.os.Bundle;
+import android.support.v4.app.INotificationSideChannel;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -63,14 +65,14 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
+        receiver = new WifiBroadcastReceiver(manager, channel, this);
     }
 
     private void InitComponents() {
         searchLoading = findViewById(R.id.searchLoading);
         wifiGif = findViewById(R.id.wifiGif);
         wifiGif.setGifResource(R.drawable.wifi);
-        toggleLoadingVisibility(true);
+        toggleLoadingVisibility(false);
 
         searchBtn = findViewById(R.id.searchBtn);
         connectBtn = findViewById(R.id.connectBtn);
@@ -126,6 +128,9 @@ public class SearchActivity extends AppCompatActivity {
                     // for ActivityCompat#requestPermissions for more details.
                     return;
                 }
+
+
+
                 manager.connect(channel, config, new WifiP2pManager.ActionListener() {
                     @Override
                     public void onSuccess() {
@@ -187,7 +192,6 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        receiver = new WifiBroadcastReceiver(manager, channel, this);
         registerReceiver(receiver, intentFilter);
     }
 
